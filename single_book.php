@@ -2,8 +2,7 @@
 
 <?php
 
-Book::find("id = " . $_GET['id'], function($book) {
-  echo $book['name'];
-});
+$book = Book::find($_GET);
+print_r($book);
 
 ?>

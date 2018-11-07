@@ -43,14 +43,16 @@ abstract class DatabaseModel {
   #
   ###
 
-  private static function handle_results($results, $callback = null) {
-    if (!is_null($callback)) {
-      while($row = $results->fetch_assoc()) {
-        $callback($row);
-      }
+  private static function handle_results($results) {
+    $models = [];
+
+    while($row = $results->fetch_assoc()) {
+      // PHP metaprogramming sucks
+      eval('$model = new ' . get_called_class() . '($row);');
+      $models[] = $model;
     }
 
-    return $results;
+    return $models;
   }
 
   ###
@@ -61,7 +63,7 @@ abstract class DatabaseModel {
   #
   ###
 
-  public static function from_self($select, $where, $callback = null) {
+  public static function from_self($select, $where) {
     global $db;
 
     if (is_array($where)) {
@@ -71,7 +73,7 @@ abstract class DatabaseModel {
     }
 
     $results = $db->query($select . " from " . self::table_name() . $where);
-    return self::handle_results($results, $callback);
+    return self::handle_results($results);
   }
 
   ###
@@ -81,8 +83,8 @@ abstract class DatabaseModel {
   #
   ###
 
-  public static function all($callback = null) {
-    return self::from_self('select *', null, $callback);
+  public static function all() {
+    return self::from_self('select *', null);
   }
 
   ###
@@ -93,8 +95,9 @@ abstract class DatabaseModel {
   #
   ###
 
-  public static function where($params, $callback = null) {
-    return self::from_self('select *', $params, $callback);
+  public static function where($params) {
+    $params = self::handle_params($params);
+    return self::from_self('select *', $params);
   }
 
   ###
@@ -105,28 +108,109 @@ abstract class DatabaseModel {
   #
   ###
 
-  public static function find($params, $callback = null) {
-    $params = self::merge_conditions($params, "LIMIT 1");
-    return self::from_self('select *', $params, $callback);
+  public static function find($params) {
+    $params = self::handle_params($params, "LIMIT 1");
+    $results = self::from_self('select *', $params);
+
+    if (is_array($results)) {
+      return $results[0];
+    }
+    return $results;
+  }
+
+  ###
+  #
+  # PRIVATE STATIC handle_params
+  # Converts a hash of params into a query string.
+  #
+  ###
+
+  private static function handle_params(...$params) {
+    $handled_params = array_map(function($param) {
+      if (!is_array($param)) {
+        return $param;
+      }
+
+      $param = self::filter_params($param);
+
+      return implode(" AND ", array_map(function($key, $value) {
+        if (is_string($value)) {
+          $value = "\"$value\"";
+        }
+
+        return "$key = $value";
+      }, array_keys($param), array_values($param)));
+    }, $params);
+
+    return self::merge_conditions($handled_params);
+  }
+
+  ###
+  #
+  # PRIVATE STATIC filter_params
+  # Filters params based on the strong_params static method
+  # which must be defined on all subclasses.
+  #
+  ###
+
+  private static function filter_params($params) {
+    $params_kept = [];
+    $allowed = static::strong_params();
+
+    foreach($params as $key => $value) {
+      if (in_array($key, $allowed)) {
+        $params_kept[$key] = $value;
+      }
+    }
+
+    print_r($params_kept);
+    return $params_kept;
   }
 
   ###
   #
   # PROTECTED STATIC merge_conditions
-  # Merges two condition strings
+  # Merges two or more condition strings
   #
   ###
 
-  protected static function merge_conditions($c1, $c2, $join = " ") {
-    if (!$c1) {
-      return $c2;
-    }
+  protected static function merge_conditions($conds) {
+    return implode(" ", array_filter($conds));
+  }
 
-    if (!$c2) {
-      return $c1;
-    }
+  # --- END OF STATIC METHODS ---
 
-    return $c1 . " " . $c2;
+  ###
+  #
+  # PUBLIC __construct
+  # Returns a wrapper object around the results hash.
+  #
+  ###
+
+  public function __construct($hash) {
+    $this->hash = $hash;
+  }
+
+  ###
+  #
+  # PUBLIC __call
+  # Returns the value of a property.
+  #
+  ###
+
+  public function __call($name, $arguments) {
+    return $this->hash[$name];
+  }
+
+  ###
+  #
+  # PUBLIC to
+  # Passes the current model to a callback.
+  #
+  ###
+
+  public function to($callback) {
+    return $callback($this);
   }
 }
 

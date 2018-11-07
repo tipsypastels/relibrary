@@ -2,7 +2,7 @@
 
 <ul>
   <?php
-    Book::all(function($book) { ?>
+    Book::all()->to(function($book) { ?>
       <li><?php
         echo $book['name'];
       ?></li>

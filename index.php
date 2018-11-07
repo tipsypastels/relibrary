@@ -4,8 +4,8 @@
 
 <?php
 
-Book::find("id = 1", function($book) {
-  echo $book['name'];
+Book::find("id = 1")->to(function($book) {
+  echo $book->name();
 });
 
 ?>
