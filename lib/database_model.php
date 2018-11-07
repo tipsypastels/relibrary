@@ -49,16 +49,16 @@ abstract class DatabaseModel {
   #
   ###
 
-  private static function from_self($select, $where) {
+  private static function from_self($select, $where, $filters = null) {
     global $db;
 
     if (is_array($where)) {
-      $where = " where " . implode(" AND ", $where);
+      $where = "where " . implode(" AND ", $where);
     } else if ($where) {
-      $where = " where " . $where;
+      $where = "where " . $where;
     }
 
-    $results = $db->query($select . " from " . static::table_name() . $where);
+    $results = $db->query($select . " from " . static::table_name() . ' ' . $where . ' ' . $filters);
     return self::handle_results($results);
   }
 
@@ -95,8 +95,8 @@ abstract class DatabaseModel {
   ###
 
   public static function find($params) {
-    $params = self::handle_params($params, "LIMIT 1");
-    $results = self::from_self('select *', $params);
+    $params = self::handle_params($params);
+    $results = self::from_self('select *', $params, 'LIMIT 1');
 
     if (is_array($results)) {
       return $results[0];

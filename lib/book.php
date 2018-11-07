@@ -6,11 +6,11 @@ class Book extends DatabaseModel {
   }
 
   public static function strong_params() {
-    return ['id'];
+    return ['id', 'author_id'];
   }
 
   public function link() {
-    return "books.php?id=" . $this->id();
+    return "showbook.php?id=" . $this->id();
   }
 }
 

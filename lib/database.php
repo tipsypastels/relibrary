@@ -1,6 +1,5 @@
 <?php
 
-require 'database_interface.php';
 require 'database_model.php';
 
 $db = new mysqli(
