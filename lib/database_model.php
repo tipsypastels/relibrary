@@ -23,23 +23,9 @@ abstract class DatabaseModel {
 
   ###
   #
-  # PRIVATE STATIC table_name
-  # Returns the name of a subclass to this model, converted to table name form.
-  # Table names are always lowercase and plural.
-  # Book => books
-  #
-  ###
-
-  private static function table_name() {
-    return strtolower(get_called_class()) . 's';
-  }
-
-  ###
-  #
   # PRIVATE STATIC handle_results
-  # Passes results to a callback, or 
-  # returns them as a results object if
-  # the callback is blank.
+  # Converts a results hash to wrapper
+  # model objects to add functionality.
   #
   ###
 
@@ -72,7 +58,7 @@ abstract class DatabaseModel {
       $where = " where " . $where;
     }
 
-    $results = $db->query($select . " from " . self::table_name() . $where);
+    $results = $db->query($select . " from " . static::table_name() . $where);
     return self::handle_results($results);
   }
 
@@ -163,7 +149,6 @@ abstract class DatabaseModel {
       }
     }
 
-    print_r($params_kept);
     return $params_kept;
   }
 
@@ -195,6 +180,8 @@ abstract class DatabaseModel {
   #
   # PUBLIC __call
   # Returns the value of a property.
+  # (This is the missing method, it's called when
+  # an undefined method is called on the object)
   #
   ###
 
