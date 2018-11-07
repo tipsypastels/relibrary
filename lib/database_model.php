@@ -43,13 +43,13 @@ abstract class DatabaseModel {
 
   ###
   #
-  # PUBLIC STATIC from_self
+  # PRIVATE STATIC from_self
   # Selects from the current table, filling in
   # the rest of the SQL automatically.
   #
   ###
 
-  public static function from_self($select, $where) {
+  private static function from_self($select, $where) {
     global $db;
 
     if (is_array($where)) {
