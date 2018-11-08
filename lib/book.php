@@ -12,6 +12,12 @@ class Book extends DatabaseModel {
   public function link() {
     return "showbook.php?id=" . $this->id();
   }
+
+  public function belongs_to() {
+    return [
+      'author' => ['Author', 'author_id']
+    ];
+  }
 }
 
 ?>

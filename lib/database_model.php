@@ -186,7 +186,73 @@ abstract class DatabaseModel {
   ###
 
   public function __call($name, $arguments) {
-    return $this->hash[$name];
+    if (array_key_exists($name, $this->hash)) {
+      return $this->hash[$name];
+    }
+
+    $has_many = $this->check_has_many($name); 
+    if ($has_many) return $has_many;
+
+    $belongs_to = $this->check_belongs_to($name);
+    if ($belongs_to) return $belongs_to;
+  }
+
+  ###
+  #
+  # PRIVATE check_has_many
+  # Checks if a has_many relationship exists
+  # on a subclass.
+  #
+  ###
+
+  private function check_has_many($name) {
+    if (!method_exists($this, 'has_many')) {
+      return;
+    }
+
+    $has_many = $this->has_many();
+
+    if (!array_key_exists($name, $has_many)) {
+      return;
+    }
+
+    $hm_info = $has_many[$name];
+
+    $model = $hm_info[0];
+    $fk = $hm_info[1];
+
+    return $model::where([
+      $fk => $this->id()
+    ]);
+  }
+
+  ###
+  #
+  # PRIVATE check_belongs_to
+  # Checks if a belongs_to relationship exists
+  # on a subclass.
+  #
+  ###
+
+  private function check_belongs_to($name) {
+    if (!method_exists($this, 'belongs_to')) {
+      return;
+    }
+
+    $belongs_to = $this->belongs_to();
+
+    if (!array_key_exists($name, $belongs_to)) {
+      return;
+    }
+    
+    $bt_info = $belongs_to[$name];
+
+    $model = $bt_info[0];
+    $fk = $bt_info[1];
+
+    return $model::find([
+      'id' => $this->hash[$fk]
+    ]);
   }
 
   ###
