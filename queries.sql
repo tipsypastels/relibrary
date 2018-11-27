@@ -1,1 +1,1 @@
-select * from book_ratings where book_id = "4" 
+select * from authors where id = "1" LIMIT 1

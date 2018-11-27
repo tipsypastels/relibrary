@@ -7,7 +7,9 @@
       <?php echo $book->name() ?>
     </a>
 
-    <a class="author" href="<?php echo $book->author()->link() ?>">
+    <?php $a_link = $book->author()->link() ?>
+
+    <a class="author" href="<?php echo $a_link ?>">
       By <?php echo $book->author()->name() ?>
     </a>
   </div>

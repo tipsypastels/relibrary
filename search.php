@@ -16,10 +16,6 @@
       Back Home
     </a>
 
-    <a href="featured.php" class="btn block">
-      Featured Books
-    </a>
-
     <?php if (signed_in()): ?>
       <a href="dashboard.php" class="btn block">
         Your Dashboard
