@@ -43,3 +43,5 @@ select * from books where id = "3" LIMIT 1
 select * from authors where id = "3" LIMIT 1
 select * from authors where id = "3" LIMIT 1
 select * from authors where id = "3" LIMIT 1
+select * from customers where email = "karan@singh.com" AND password = "1234" LIMIT 1
+select * from customers where email = "a@b.c" AND password = "b" LIMIT 1

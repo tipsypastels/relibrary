@@ -2,8 +2,12 @@
 By Group Nine
 
 How to use:
-- Navigate to ocellus.lutean.com:19991/relibrary
-- Create an account
+- Start XAMPP.
+- Clone this project into your `htdocs` directory.
+- Create a `relibrary` database in PHPMyAdmin.
+- Make sure your PHPMyAdmin database access settings match those in `lib/database.php`. If not, edit the file accordingly.
+- Insert the contents of SETUP.sql (see the filesystem above) into the newly created database.
+- Navigate to localhost/relibrary.
 
 ## About the Database Interface
 
