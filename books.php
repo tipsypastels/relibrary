@@ -17,3 +17,5 @@
     </li>
   <?php endforeach; ?>
 </ul>
+
+<?php require 'footer.php' ?>

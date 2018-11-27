@@ -9,11 +9,4 @@ $db = new mysqli(
   /* db name */  'relibrary'
 );
 
-// TODO handle errors
-// if ($db->connect_error) {
-//   die("Uh oh.");
-// } else {
-//   print("Connected!");
-// }
-
 ?>

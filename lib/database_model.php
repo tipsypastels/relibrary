@@ -19,7 +19,7 @@
 #
 ###
 
-abstract class DatabaseModel {
+class DatabaseModel {
 
   ###
   #
@@ -29,16 +29,36 @@ abstract class DatabaseModel {
   #
   ###
 
-  private static function handle_results($results) {
+  public static function handle_results($results, $class = null) {
+    if (!$class) {
+      $class = get_called_class();
+    }
+
+    if ($results == false) {
+      return null;
+    }
+    
     $models = [];
 
     while($row = $results->fetch_assoc()) {
       // PHP metaprogramming sucks
-      eval('$model = new ' . get_called_class() . '($row);');
+      eval('$model = new ' . $class . '($row);');
       $models[] = $model;
     }
 
     return $models;
+  }
+
+  ###
+  #
+  # PRIVATE STATIC query
+  # Performs the actual query.
+  #
+  ###
+
+  private static function query($query) {
+    global $db;
+    return $db->query($query);
   }
 
   ###
@@ -58,7 +78,7 @@ abstract class DatabaseModel {
       $where = "where " . $where;
     }
 
-    $results = $db->query($select . " from " . static::table_name() . ' ' . $where . ' ' . $filters);
+    $results = self::query($select . " from " . static::table_name() . ' ' . $where . ' ' . $filters);
     return self::handle_results($results);
   }
 
@@ -161,6 +181,43 @@ abstract class DatabaseModel {
 
   protected static function merge_conditions($conds) {
     return implode(" ", array_filter($conds));
+  }
+
+  ###
+  #
+  # PUBLIC STATIC new
+  # Inserts a new copy of this model
+  #
+  ###
+
+  public static function new($params) {
+    global $db;
+
+    $params = self::filter_params($params);
+
+    foreach(static::required_fields() as $field) {
+      if (!isset($params[$field])) {
+        return null;
+      }
+    }
+
+    $fields = implode(', ', array_keys($params));
+    $values = implode(', ', array_map(function($param) {
+      return is_string($param) ? "\"$param\"" : $param;
+    }, array_values($params)));
+
+    $insert = "INSERT INTO " . static::table_name() . " ($fields) VALUES ($values);";
+
+    echo $insert;
+
+    $success = self::query($insert);
+
+    if (!$success) {
+      return null;
+    }
+
+    eval('$model = new ' . get_called_class() . '($params);');
+    return $model;
   }
 
   # --- END OF STATIC METHODS ---

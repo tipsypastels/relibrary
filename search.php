@@ -1,18 +1,23 @@
 <?php 
   require 'header.php'; 
-  title('Relibrary');
+  title('Search Relibrary');
 ?>
 
 <main class="flex column flex-centered">
-  <h1 class="title">Relibrary</h1>
+  <h1 class="title">Search</h1>
+
+  <form action="results.php" method="get">
+    <input type="text" name="search" placeholder="Enter your query" autofocus>
+    <input type="submit" value="Search!">
+  </form>
 
   <section id="page-buttons">
-    <a href="featured.php" class="btn block">
-      Featured Books
+    <a href="index.php" class="btn block">
+      Back Home
     </a>
 
-    <a href="search.php" class="btn block">
-      Search Books
+    <a href="featured.php" class="btn block">
+      Featured Books
     </a>
 
     <?php if (signed_in()): ?>
@@ -25,13 +30,6 @@
       </a>
     <?php endif; ?>
   </section>
-
-  <?php if (!signed_in()): ?>
-    <section id="login" class="flex">
-      <?php render_partial('login_form') ?>
-      <?php render_partial('signup_form') ?>
-    </section>
-  <?php endif; ?>
 </main>
 
 <?php require 'footer.php'; ?>

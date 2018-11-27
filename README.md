@@ -75,4 +75,3 @@ $author->books();
 ```
 
 This will find every book whose author_id matches the author's id. It returns an array of books. This is a "has many" relationship.
-
