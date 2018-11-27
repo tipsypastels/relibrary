@@ -1,6 +1,1 @@
-
-    DELETE FROM 
-      customers
-    WHERE
-      id = 1
-  
+select * from authors where id = "1" LIMIT 1

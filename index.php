@@ -7,6 +7,10 @@
   <h1 class="title">Relibrary</h1>
 
   <section id="page-buttons">
+    <a href="all_books.php" class="btn block">
+      All Books
+    </a>
+
     <a href="randombook.php" class="btn block">
       Random Book
     </a>
