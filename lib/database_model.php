@@ -51,16 +51,27 @@ class DatabaseModel {
 
   ###
   #
-  # PRIVATE STATIC query
+  # PUBLIC STATIC query
   # Performs the actual query.
   #
   ###
 
-  private static function query($query) {
+  public static function query($query) {
     file_put_contents('queries.sql', "$query\n");
-
     global $db;
-    return $db->query($query);
+
+    $results = $db->query($query);
+    $rows = $results->num_rows;
+
+    $js_query = json_encode($query);
+    ?>
+      <script>
+        console.log('%c' + <?php echo $js_query ?>, 'font-weight: bold');
+        console.log("<?php echo $rows ?> Results");
+      </script>
+    <?php
+
+    return $results;
   }
 
   ###

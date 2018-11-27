@@ -38,10 +38,9 @@ class Book extends DatabaseModel {
   }
 
   private function aggregate_ratings($agg) {
-    global $db;
     $id = $this->id();
 
-    $results = $db->query("
+    $results = DatabaseModel::query("
       SELECT
         $agg(score)
       FROM
