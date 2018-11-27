@@ -1,1 +1,6 @@
-select * from authors where id = "3" LIMIT 1
+
+    DELETE FROM 
+      customers
+    WHERE
+      id = 1
+  

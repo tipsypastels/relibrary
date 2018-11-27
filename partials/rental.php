@@ -9,7 +9,7 @@
   </div>
 
   <div class="due">
-    Due <?php echo rlytime($rental->return_due()); ?>
+    Due Dec 4th, 2018
   </div>
 
   <?php if ($rental->overdue()): ?>

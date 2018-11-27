@@ -61,16 +61,18 @@ class DatabaseModel {
     global $db;
 
     $results = $db->query($query);
-    $rows = $results->num_rows;
+    if ($results) {
+      $rows = $results->num_rows;
 
-    $js_query = str_replace('"', '', $query);
+      $js_query = str_replace('"', '', $query);
 
-    ?>
-      <script>
-        console.log('%c<?php echo $js_query ?>', 'font-weight: bold');
-        console.log('<?php echo $rows ?> Results');
-      </script>
-    <?php
+      ?>
+        <script>
+          console.log('%c<?php echo $js_query ?>', 'font-weight: bold');
+          console.log('<?php echo $rows ?> Results');
+        </script>
+      <?php
+    }
 
     return $results;
   }
