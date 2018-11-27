@@ -57,6 +57,8 @@ class DatabaseModel {
   ###
 
   private static function query($query) {
+    file_put_contents('queries.sql', "$query\n", FILE_APPEND);
+
     global $db;
     return $db->query($query);
   }
