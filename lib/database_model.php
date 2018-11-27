@@ -63,11 +63,12 @@ class DatabaseModel {
     $results = $db->query($query);
     $rows = $results->num_rows;
 
-    $js_query = json_encode($query);
+    $js_query = str_replace('"', '', $query);
+
     ?>
       <script>
-        console.log('%c' + <?php echo $js_query ?>, 'font-weight: bold');
-        console.log("<?php echo $rows ?> Results");
+        console.log('%c<?php echo $js_query ?>', 'font-weight: bold');
+        console.log('<?php echo $rows ?> Results');
       </script>
     <?php
 

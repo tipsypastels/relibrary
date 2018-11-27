@@ -1,1 +1,1 @@
-select * from book_rentals where book_id = "1" AND customer_id = "1" 
+select * from authors where id = "3" LIMIT 1
