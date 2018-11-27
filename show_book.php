@@ -7,6 +7,8 @@
     redirect_to('not_found');
     exit();
   }
+
+  title($book->name());
 ?>
 
 <main id="showbook" class="flex column flex-centered">

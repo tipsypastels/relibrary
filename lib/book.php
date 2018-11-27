@@ -10,7 +10,7 @@ class Book extends DatabaseModel {
   }
 
   public function link() {
-    return "showbook.php?id=" . $this->id();
+    return "show_book.php?id=" . $this->id();
   }
 
   public function rent_link() {

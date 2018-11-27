@@ -23,8 +23,8 @@ function authenticate_user($goto = 'index', $or = null) {
   }
 }
 
-function fa($name) { ?>
-  <i class="fas fa-<?php echo $name ?>"></i>
+function fa($name, $group = 'fas') { ?>
+  <i class="<?php echo $group ?> fa-<?php echo $name ?>"></i>
 <?php }
 
 function title($title) { ?>

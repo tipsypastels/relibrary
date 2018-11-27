@@ -220,6 +220,31 @@ class DatabaseModel {
     return $model;
   }
 
+  ###
+  #
+  # PUBLIC STATIC ids
+  # Returns all the ID numbers as an array.
+  #
+  ###
+
+  public static function ids() {
+    $ids = [];
+    $table = static::table_name();
+
+    $results = self::query("
+      SELECT 
+        id
+      FROM
+        $table
+    ");
+
+    while($row = $results->fetch_assoc()) {
+      $ids[] = array_values($row)[0];
+    }
+
+    return $ids;
+  }
+  
   # --- END OF STATIC METHODS ---
 
   ###

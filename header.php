@@ -24,3 +24,6 @@ session_start();
   </head>
 
   <body>
+    <a class="git" href="https://github.com/tipsypastels/relibrary" target="_blank">
+      <?php fa('github', 'fab'); ?>
+    </a>

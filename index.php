@@ -1,4 +1,4 @@
-<?php 
+<?php   
   require 'header.php'; 
   title('Relibrary');
 ?>
@@ -7,8 +7,8 @@
   <h1 class="title">Relibrary</h1>
 
   <section id="page-buttons">
-    <a href="featured.php" class="btn block">
-      Featured Books
+    <a href="randombook.php" class="btn block">
+      Random Book
     </a>
 
     <a href="search.php" class="btn block">

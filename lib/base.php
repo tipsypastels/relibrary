@@ -3,6 +3,7 @@
 require 'helpers.php';
 require 'site_search.php';
 require 'database.php';
+require 'database_model.php';
 
 require 'book.php';
 require 'author.php';
