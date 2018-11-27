@@ -20,6 +20,15 @@
     By <?php echo $book->author()->name() ?>
   </h2>
 
+  <?php if ($book->ratings()): ?>
+    <div style="margin-bottom: 1em"><?php
+      $avg = $book->average_rating();
+      $count = $book->rating_count();
+      echo "Average Rating: <strong>$avg</strong> - <strong>$count</strong> Ratings";
+    ?></div>
+    
+  <?php endif; ?>
+
   <section id="page-buttons">
     <a href="index.php" class="btn block">
       Back Home
