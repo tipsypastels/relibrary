@@ -77,3 +77,14 @@ Joins, subqueries, aggregates, and other advanced SQL features are not possible,
 - Select the customer with a given email and password (to log in).
 - Select the user linked to the current browser session.
 - Select the full name of the current us.
+
+### Book Rentals
+- Insert a book rental with foreign keys to the current customer's ID and the ID of the book being rented.
+- View all rentals made by a given customer.
+- View the available inventory of a given book, by using COUNT(\*) of rentals and subtracting that from the total number available (which is a column in the `books` table).
+
+### Book Ratings
+- Insert a book rating with foreign keys to the current customer's ID and the ID of the book being rated.
+- View all ratings of a given book.
+- View the average rating of a given book.
+- View all ratings left by a given customer.
