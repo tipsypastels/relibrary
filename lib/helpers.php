@@ -5,11 +5,13 @@ function redirect_to($page, $get = '') {
 }
 
 function signed_in() {
-  return isset($_SESSION['customer']);
+  return isset($_SESSION['customer']) && $_SESSION['customer'] != null;
 }
 
 function current_user() {
-  return $_SESSION['customer'];
+  if (signed_in()) {
+    return $_SESSION['customer'];
+  }
 }
 
 function current_name() {

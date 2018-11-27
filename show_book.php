@@ -58,7 +58,7 @@
     </a>
   </section>
 
-  <?php if (current_user()->renting($book)): ?>
+  <?php if (signed_in() && current_user()->renting($book)): ?>
     <section id="renting">
       <div class="divider"></div>
 
