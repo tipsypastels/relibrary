@@ -28,10 +28,13 @@ class Customer extends DatabaseModel {
   }
 
   public function renting($book) {
-    return sizeof(BookRental::where([
+    $rental = BookRental::where([
       'book_id'     => $book->id(),
       'customer_id' => $this->id()
-    ]));
+    ]);
+
+    if (!$rental) return false;
+    return sizeof($rental);
   }
 
   public function has_many() {
