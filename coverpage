@@ -1,0 +1,31 @@
+CPSC 2221 - Database Systems (Fall 2018)
+Group Project - Implementation of a Relational Database
+
+Project Title: 	relibrary
+
+
+#	Student Name	Student ID	Email Address
+1	Yumemi Mitsuda	100295823	Ymitsuda00@mylangara.bc.ca
+2	Kyle Sankey	100295100	Ksankey00@mylangara.bc.ca
+3	Karanvir Singh	100304708	k21@mylangara.bc.ca
+
+
+Script
+
+Following link contain the script used to create the tables and insert data.
+https://github.com/tipsypastels/relibrary/blob/master/SETUP.sql
+
+Instruction to install
+This is the working link of our project:
+http://ocellus.lutean.com:19991/relibrary/
+
+if it is not working then go to the following link to check the instructions to install
+https://github.com/tipsypastels/relibrary#relibrary
+
+Short description
+With this application, customers can search book, rent a book, reserve a book which is not available currently, and leave reviews on books.
+
+List of SQL Queries 
+Following link contain all the queries used 
+https://github.com/tipsypastels/relibrary#relibrary
+
