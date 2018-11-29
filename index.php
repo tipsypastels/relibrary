@@ -19,6 +19,10 @@
       Search Books
     </a>
 
+    <a href="active_author.php" class="btn block">
+      Author With Most Books
+    </a>
+
     <?php if (signed_in()): ?>
       <a href="dashboard.php" class="btn block">
         Your Dashboard

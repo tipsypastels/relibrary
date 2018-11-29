@@ -24,6 +24,10 @@
       Your Ratings
     </a>
 
+    <a href="account.php" class="btn block">
+      Edit Account
+    </a>
+
     <a href="logout.php" class="btn block">
       Log Out
     </a>

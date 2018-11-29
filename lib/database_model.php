@@ -65,6 +65,7 @@ class DatabaseModel {
       $rows = $results->num_rows;
 
       $js_query = str_replace('"', '', $query);
+      $js_query = trim(preg_replace('/\s\s+/', ' ', $js_query));
 
       ?>
         <script>
@@ -134,7 +135,7 @@ class DatabaseModel {
     $params = self::handle_params($params);
     $results = self::from_self('select *', $params, 'LIMIT 1');
 
-    if (is_array($results)) {
+    if (is_array($results) && array_key_exists(0, $results)) {
       return $results[0];
     }
     return $results;

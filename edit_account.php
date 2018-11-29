@@ -21,7 +21,7 @@
   "));
 
   # reset the cache
-  $_SESSION['customer'] = Customer::find($id);
+  $_SESSION['customer']->hash = $_POST;
 
   redirect_to('dashboard');
 ?>

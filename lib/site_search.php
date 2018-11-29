@@ -15,18 +15,17 @@ class SiteSearch {
   }
 
   private function query() {
-    global $db;
     $text = $this->text;
 
-    return $db->query("
+    return DatabaseModel::query("
       SELECT DISTINCT
-        books.*
+        books.name,
+        books.id,
+        books.author_id
       FROM
-        books, authors
+        books
       WHERE
         books.name LIKE '%$text%'
-      OR
-        authors.name LIKE '%$text%'
     ;");
   }
 }

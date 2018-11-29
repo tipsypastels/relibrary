@@ -1,5 +1,6 @@
 article.book-min {
-
+  display: flex;
+  width: 300px;
 }
 
 article.book-min .fas {
@@ -8,6 +9,7 @@ article.book-min .fas {
 
 article.book-min .meta {
   padding: 1em;
+  flex-grow: 1;
 }
 
 article.book-min .meta .name {
